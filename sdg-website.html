@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>17 SDGs - Your Guide to Global Action</title>
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+<style>
+/* RESET */
+* {margin: 0; padding: 0; box-sizing: border-box;}
+
+/* GLOBAL STYLES */
+body {
+  font-family: 'Poppins', sans-serif;
+  color: #333;
+  background: linear-gradient(135deg, #4f5bd5, #962fbf, #d62976, #fa7e1e, #feda75);
+  background-size: 400% 400%;
+  animation: gradientBG 15s ease infinite;
+}
+
+@keyframes gradientBG {
+  0%{background-position:0% 50%;}
+  50%{background-position:100% 50%;}
+  100%{background-position:0% 50%;}
+}
+
+.container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 20px;
+}
+
+/* HEADER SECTION */
+header {
+  position: relative;
+  text-align: center;
+  padding: 120px 20px 100px;
+  color: white;
+  overflow: hidden;
+}
+
+header h1 {
+  font-size: 3.5em;
+  margin-bottom: 10px;
+  text-shadow: 2px 2px 8px rgba(0,0,0,0.4);
+}
+
+header p {
+  font-size: 1.3em;
+  opacity: 0.95;
+}
+
+canvas#particles {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  z-index: -1;
+}
+
+/* INTRO SECTION */
+.intro {
+  background: white;
+  padding: 40px;
+  border-radius: 15px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+  margin-bottom: 50px;
+  transition: transform 0.4s;
+}
+.intro:hover {
+  transform: translateY(-5px);
+}
+.intro h2 {color: #667eea; margin-bottom: 15px;}
+
+/* SDG GRID */
+.sdg-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+  gap: 25px;
+}
+
+.sdg-card {
+  perspective: 1000px;
+  height: 260px;
+}
+
+.sdg-inner {
+  position: relative;
+  width: 100%; height: 100%;
+  text-align: left;
+  border-radius: 12px;
+  transform-style: preserve-3d;
+  transition: transform 0.8s;
+  cursor: pointer;
+}
+
+.sdg-inner:hover {
+  transform: rotateY(180deg);
+}
+
+.sdg-front, .sdg-back {
+  position: absolute;
+  width: 100%; height: 100%;
+  backface-visibility: hidden;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.sdg-front {
+  border-left: 6px solid;
+}
+.sdg-back {
+  transform: rotateY(180deg);
+  background: #f7f9fc;
+  overflow-y: auto;
+}
+
+.sdg-front h3 {
+  font-size: 1.2em;
+  margin-bottom: 8px;
+}
+.sdg-front p {
+  color: #666;
+}
+
+.actions h4 {
+  margin-bottom: 10px;
+  color: #444;
+}
+.actions ul {
+  list-style: none;
+  font-size: 0.9em;
+}
+.actions li {
+  margin-bottom: 5px;
+  cursor: pointer;
+}
+.actions li::before {
+  content: "☐ ";
+  color: #888;
+}
+.actions li.completed::before {
+  content: "☑ ";
+  color: #28a745;
+}
+
+/* CTA SECTION */
+.cta-section {
+  background: white;
+  padding: 40px;
+  border-radius: 15px;
+  text-align: center;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+  margin-top: 50px;
+}
+.cta-section h2 {
+  color: #667eea;
+  margin-bottom: 20px;
+}
+.cta-button {
+  display: inline-block;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+  padding: 15px 40px;
+  border-radius: 30px;
+  text-decoration: none;
+  font-weight: bold;
+  margin: 10px;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.cta-button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+}
+
+/* FOOTER */
+footer {
+  text-align: center;
+  padding: 40px;
+  color: white;
+}
+
+/* SDG COLORS */
+.sdg-1 {border-left-color: #E5243B;}
+.sdg-2 {border-left-color: #DDA63A;}
+.sdg-3 {border-left-color: #4C9F38;}
+.sdg-4 {border-left-color: #C5192D;}
+.sdg-5 {border-left-color: #FF3A21;}
+.sdg-6 {border-left-color: #26BDE2;}
+.sdg-7 {border-left-color: #FCC30B;}
+.sdg-8 {border-left-color: #A21942;}
+.sdg-9 {border-left-color: #FD6925;}
+.sdg-10 {border-left-color: #DD1367;}
+.sdg-11 {border-left-color: #FD9D24;}
+.sdg-12 {border-left-color: #BF8B2E;}
+.sdg-13 {border-left-color: #3F7E44;}
+.sdg-14 {border-left-color: #0A97D9;}
+.sdg-15 {border-left-color: #56C02B;}
+.sdg-16 {border-left-color: #00689D;}
+.sdg-17 {border-left-color: #19486A;}
+</style>
+</head>
+
+<body>
+<header>
+  <canvas id="particles"></canvas>
+  <div class="container" data-aos="fade-up">
+    <h1>🌍 The 17 Sustainable Development Goals</h1>
+    <p>Small Actions, Big Impact - Your Guide to Making a Difference</p>
+  </div>
+</header>
+
+<div class="container">
+  <div class="intro" data-aos="fade-up">
+    <h2>What are the SDGs?</h2>
+    <p>The Sustainable Development Goals (SDGs) are 17 interconnected global goals adopted by the United Nations in 2015, forming a shared blueprint for peace and prosperity for people and the planet. You can help achieve them — one small action at a time.</p>
+  </div>
+
+  <div class="sdg-grid">
+    <div class="sdg-card sdg-13" data-aos="zoom-in">
+      <div class="sdg-inner">
+        <div class="sdg-front">
+          <h3>13. Climate Action</h3>
+          <p>Take urgent action to combat climate change and its impacts.</p>
+        </div>
+        <div class="sdg-back">
+          <div class="actions">
+            <h4>What You Can Do:</h4>
+            <ul>
+              <li>Reduce your carbon footprint</li>
+              <li>Eat less meat and dairy</li>
+              <li>Plant trees and support reforestation</li>
+              <li>Advocate for climate policies</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sdg-card sdg-4" data-aos="zoom-in">
+      <div class="sdg-inner">
+        <div class="sdg-front">
+          <h3>4. Quality Education</h3>
+          <p>Ensure inclusive and equitable quality education for all.</p>
+        </div>
+        <div class="sdg-back">
+          <div class="actions">
+            <h4>What You Can Do:</h4>
+            <ul>
+              <li>Tutor or mentor students</li>
+              <li>Donate books and educational materials</li>
+              <li>Support literacy programs</li>
+              <li>Share your knowledge</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sdg-card sdg-6" data-aos="zoom-in">
+      <div class="sdg-inner">
+        <div class="sdg-front">
+          <h3>6. Clean Water and Sanitation</h3>
+          <p>Ensure access to water and sanitation for all.</p>
+        </div>
+        <div class="sdg-back">
+          <div class="actions">
+            <h4>What You Can Do:</h4>
+            <ul>
+              <li>Conserve water daily</li>
+              <li>Fix leaks promptly</li>
+              <li>Don’t pollute water sources</li>
+              <li>Support clean water charities</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cta-section" data-aos="fade-up">
+    <h2>Ready to Make a Difference?</h2>
+    <p>Every action counts — choose one goal and start today!</p>
+    <a href="https://sdgs.un.org/goals" class="cta-button" target="_blank">Learn More at UN</a>
+  </div>
+</div>
+
+<footer>
+  <p>🌱 Every action matters. Start making a difference today! 🌱</p>
+</footer>
+
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+AOS.init();
+
+// Mark actions as completed
+document.querySelectorAll('.actions li').forEach(li => {
+  li.addEventListener('click', () => li.classList.toggle('completed'));
+});
+
+// Simple animated particle background
+const canvas = document.getElementById('particles');
+const ctx = canvas.getContext('2d');
+let particles = [];
+
+function resize() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight * 0.5;
+}
+window.addEventListener('resize', resize);
+resize();
+
+for (let i = 0; i < 80; i++) {
+  particles.push({
+    x: Math.random() * canvas.width,
+    y: Math.random() * canvas.height,
+    r: Math.random() * 2 + 1,
+    dx: (Math.random() - 0.5) * 0.6,
+    dy: (Math.random() - 0.5) * 0.6
+  });
+}
+
+function draw() {
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  ctx.fillStyle = 'rgba(255,255,255,0.8)';
+  particles.forEach(p => {
+    ctx.beginPath();
+    ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+    ctx.fill();
+    p.x += p.dx; p.y += p.dy;
+    if(p.x<0||p.x>canvas.width)p.dx*=-1;
+    if(p.y<0||p.y>canvas.height)p.dy*=-1;
+  });
+  requestAnimationFrame(draw);
+}
+draw();
+</script>
+</body>
+</html>
