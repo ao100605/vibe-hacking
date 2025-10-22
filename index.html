@@ -1,344 +1,453 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>17 SDGs - Your Guide to Global Action</title>
-<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>17 SDGs - Your Guide to Global Action</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-<style>
-/* RESET */
-* {margin: 0; padding: 0; box-sizing: border-box;}
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
 
-/* GLOBAL STYLES */
-body {
-  font-family: 'Poppins', sans-serif;
-  color: #333;
-  background: linear-gradient(135deg, #4f5bd5, #962fbf, #d62976, #fa7e1e, #feda75);
-  background-size: 400% 400%;
-  animation: gradientBG 15s ease infinite;
-}
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
 
-@keyframes gradientBG {
-  0%{background-position:0% 50%;}
-  50%{background-position:100% 50%;}
-  100%{background-position:0% 50%;}
-}
+        header {
+            text-align: center;
+            padding: 60px 20px;
+            color: white;
+        }
 
-.container {
-  max-width: 1200px;
-  margin: auto;
-  padding: 20px;
-}
+        header h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
 
-/* HEADER SECTION */
-header {
-  position: relative;
-  text-align: center;
-  padding: 120px 20px 100px;
-  color: white;
-  overflow: hidden;
-}
+        header p {
+            font-size: 1.3em;
+            opacity: 0.95;
+        }
 
-header h1 {
-  font-size: 3.5em;
-  margin-bottom: 10px;
-  text-shadow: 2px 2px 8px rgba(0,0,0,0.4);
-}
+        .intro {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
 
-header p {
-  font-size: 1.3em;
-  opacity: 0.95;
-}
+        .intro h2 {
+            color: #667eea;
+            margin-bottom: 15px;
+        }
 
-canvas#particles {
-  position: absolute;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  z-index: -1;
-}
+        .sdg-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
 
-/* INTRO SECTION */
-.intro {
-  background: white;
-  padding: 40px;
-  border-radius: 15px;
-  box-shadow: 0 8px 25px rgba(0,0,0,0.15);
-  margin-bottom: 50px;
-  transition: transform 0.4s;
-}
-.intro:hover {
-  transform: translateY(-5px);
-}
-.intro h2 {color: #667eea; margin-bottom: 15px;}
+        .sdg-card {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+            border-left: 5px solid;
+        }
 
-/* SDG GRID */
-.sdg-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
-  gap: 25px;
-}
+        .sdg-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
 
-.sdg-card {
-  perspective: 1000px;
-  height: 260px;
-}
+        .sdg-card h3 {
+            margin-bottom: 10px;
+            font-size: 1.2em;
+        }
 
-.sdg-inner {
-  position: relative;
-  width: 100%; height: 100%;
-  text-align: left;
-  border-radius: 12px;
-  transform-style: preserve-3d;
-  transition: transform 0.8s;
-  cursor: pointer;
-}
+        .sdg-card p {
+            color: #666;
+            font-size: 0.95em;
+            margin-bottom: 15px;
+        }
 
-.sdg-inner:hover {
-  transform: rotateY(180deg);
-}
+        .actions {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+        }
 
-.sdg-front, .sdg-back {
-  position: absolute;
-  width: 100%; height: 100%;
-  backface-visibility: hidden;
-  background: white;
-  border-radius: 12px;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.1);
-  padding: 25px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
+        .actions h4 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 1em;
+        }
 
-.sdg-front {
-  border-left: 6px solid;
-}
-.sdg-back {
-  transform: rotateY(180deg);
-  background: #f7f9fc;
-  overflow-y: auto;
-}
+        .actions ul {
+            list-style: none;
+            padding-left: 0;
+        }
 
-.sdg-front h3 {
-  font-size: 1.2em;
-  margin-bottom: 8px;
-}
-.sdg-front p {
-  color: #666;
-}
+        .actions li {
+            padding: 5px 0;
+            color: #555;
+            font-size: 0.9em;
+        }
 
-.actions h4 {
-  margin-bottom: 10px;
-  color: #444;
-}
-.actions ul {
-  list-style: none;
-  font-size: 0.9em;
-}
-.actions li {
-  margin-bottom: 5px;
-  cursor: pointer;
-}
-.actions li::before {
-  content: "☐ ";
-  color: #888;
-}
-.actions li.completed::before {
-  content: "☑ ";
-  color: #28a745;
-}
+        .actions li:before {
+            content: "✓ ";
+            color: #28a745;
+            font-weight: bold;
+            margin-right: 5px;
+        }
 
-/* CTA SECTION */
-.cta-section {
-  background: white;
-  padding: 40px;
-  border-radius: 15px;
-  text-align: center;
-  box-shadow: 0 8px 30px rgba(0,0,0,0.2);
-  margin-top: 50px;
-}
-.cta-section h2 {
-  color: #667eea;
-  margin-bottom: 20px;
-}
-.cta-button {
-  display: inline-block;
-  background: linear-gradient(135deg, #667eea, #764ba2);
-  color: white;
-  padding: 15px 40px;
-  border-radius: 30px;
-  text-decoration: none;
-  font-weight: bold;
-  margin: 10px;
-  transition: transform 0.3s, box-shadow 0.3s;
-}
-.cta-button:hover {
-  transform: scale(1.05);
-  box-shadow: 0 6px 15px rgba(0,0,0,0.2);
-}
+        .cta-section {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
 
-/* FOOTER */
-footer {
-  text-align: center;
-  padding: 40px;
-  color: white;
-}
+        .cta-section h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+        }
 
-/* SDG COLORS */
-.sdg-1 {border-left-color: #E5243B;}
-.sdg-2 {border-left-color: #DDA63A;}
-.sdg-3 {border-left-color: #4C9F38;}
-.sdg-4 {border-left-color: #C5192D;}
-.sdg-5 {border-left-color: #FF3A21;}
-.sdg-6 {border-left-color: #26BDE2;}
-.sdg-7 {border-left-color: #FCC30B;}
-.sdg-8 {border-left-color: #A21942;}
-.sdg-9 {border-left-color: #FD6925;}
-.sdg-10 {border-left-color: #DD1367;}
-.sdg-11 {border-left-color: #FD9D24;}
-.sdg-12 {border-left-color: #BF8B2E;}
-.sdg-13 {border-left-color: #3F7E44;}
-.sdg-14 {border-left-color: #0A97D9;}
-.sdg-15 {border-left-color: #56C02B;}
-.sdg-16 {border-left-color: #00689D;}
-.sdg-17 {border-left-color: #19486A;}
-</style>
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 40px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            margin: 10px;
+            transition: transform 0.3s;
+        }
+
+        .cta-button:hover {
+            transform: scale(1.05);
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: white;
+            margin-top: 40px;
+        }
+
+        /* SDG Colors */
+        .sdg-1 { border-left-color: #E5243B; }
+        .sdg-2 { border-left-color: #DDA63A; }
+        .sdg-3 { border-left-color: #4C9F38; }
+        .sdg-4 { border-left-color: #C5192D; }
+        .sdg-5 { border-left-color: #FF3A21; }
+        .sdg-6 { border-left-color: #26BDE2; }
+        .sdg-7 { border-left-color: #FCC30B; }
+        .sdg-8 { border-left-color: #A21942; }
+        .sdg-9 { border-left-color: #FD6925; }
+        .sdg-10 { border-left-color: #DD1367; }
+        .sdg-11 { border-left-color: #FD9D24; }
+        .sdg-12 { border-left-color: #BF8B2E; }
+        .sdg-13 { border-left-color: #3F7E44; }
+        .sdg-14 { border-left-color: #0A97D9; }
+        .sdg-15 { border-left-color: #56C02B; }
+        .sdg-16 { border-left-color: #00689D; }
+        .sdg-17 { border-left-color: #19486A; }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2em;
+            }
+            .sdg-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
-
 <body>
-<header>
-  <canvas id="particles"></canvas>
-  <div class="container" data-aos="fade-up">
-    <h1>🌍 The 17 Sustainable Development Goals</h1>
-    <p>Small Actions, Big Impact - Your Guide to Making a Difference</p>
-  </div>
-</header>
-
-<div class="container">
-  <div class="intro" data-aos="fade-up">
-    <h2>What are the SDGs?</h2>
-    <p>The Sustainable Development Goals (SDGs) are 17 interconnected global goals adopted by the United Nations in 2015, forming a shared blueprint for peace and prosperity for people and the planet. You can help achieve them — one small action at a time.</p>
-  </div>
-
-  <div class="sdg-grid">
-    <div class="sdg-card sdg-13" data-aos="zoom-in">
-      <div class="sdg-inner">
-        <div class="sdg-front">
-          <h3>13. Climate Action</h3>
-          <p>Take urgent action to combat climate change and its impacts.</p>
+    <header>
+        <div class="container">
+            <h1>🌍 The 17 Sustainable Development Goals</h1>
+            <p>Small Actions, Big Impact - Your Guide to Making a Difference</p>
         </div>
-        <div class="sdg-back">
-          <div class="actions">
-            <h4>What You Can Do:</h4>
-            <ul>
-              <li>Reduce your carbon footprint</li>
-              <li>Eat less meat and dairy</li>
-              <li>Plant trees and support reforestation</li>
-              <li>Advocate for climate policies</li>
-            </ul>
-          </div>
+    </header>
+
+    <div class="container">
+        <div class="intro">
+            <h2>What are the SDGs?</h2>
+            <p>The Sustainable Development Goals (SDGs) are 17 interconnected global goals adopted by all United Nations Member States in 2015. They provide a shared blueprint for peace and prosperity for people and the planet, now and into the future. The best part? Everyone can contribute to achieving these goals through everyday actions!</p>
         </div>
-      </div>
+
+        <div class="sdg-grid">
+            <div class="sdg-card sdg-1">
+                <h3>1. No Poverty</h3>
+                <p>End poverty in all its forms everywhere.</p>
+                <div class="actions">
+                    <h4>What You Can Do:</h4>
+                    <ul>
+                        <li>Donate to reputable poverty relief organizations</li>
+                        <li>Support local food banks and shelters</li>
+                        <li>Buy from fair trade businesses</li>
+                        <li>Volunteer your time and skills</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="sdg-card sdg-2">
+                <h3>2. Zero Hunger</h3>
+                <p>End hunger, achieve food security and improved nutrition.</p>
+                <div class="actions">
+                    <h4>What You Can Do:</h4>
+                    <ul>
+                        <li>Reduce food waste at home</li>
+                        <li>Support local farmers and food producers</li>
+                        <li>Donate to food banks regularly</li>
+                        <li>Compost organic waste</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="sdg-card sdg-3">
+                <h3>3. Good Health and Well-Being</h3>
+                <p>Ensure healthy lives and promote well-being for all.</p>
+                <div class="actions">
+                    <h4>What You Can Do:</h4>
+                    <ul>
+                        <li>Exercise regularly and maintain a balanced diet</li>
+                        <li>Support mental health awareness</li>
+                        <li>Get vaccinated and encourage others</li>
+                        <li>Donate blood regularly</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="sdg-card sdg-4">
+                <h3>4. Quality Education</h3>
+                <p>Ensure inclusive and equitable quality education for all.</p>
+                <div class="actions">
+                    <h4>What You Can Do:</h4>
+                    <ul>
+                        <li>Tutor or mentor students in your community</li>
+                        <li>Donate books and educational materials</li>
+                        <li>Support literacy programs</li>
+                        <li>Share your knowledge and skills freely</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="sdg-card sdg-5">
+                <h3>5. Gender Equality</h3>
+                <p>Achieve gender equality and empower all women and girls.</p>
+                <div class="actions">
+                    <h4>What You Can Do:</h4>
+                    <ul>
+                        <li>Challenge gender stereotypes and biases</li>
+                        <li>Support women-owned businesses</li>
+                        <li>Advocate for equal pay and opportunities</li>
+                        <li>Educate yourself and others on gender issues</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="sdg-card sdg-6">
+                <h3>6. Clean Water and Sanitation</h3>
+                <p>Ensure access to water and sanitation for all.</p>
+                <div class="actions">
+                    <h4>What You Can Do:</h4>
+                    <ul>
+                        <li>Conserve water in daily activities</li>
+                        <li>Fix leaks promptly</li>
+                        <li>Don't pollute water sources</li>
+                        <li>Support organizations providing clean water</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="sdg-card sdg-7">
+                <h3>7. Affordable and Clean Energy</h3>
+                <p>Ensure access to affordable, reliable, sustainable energy.</p>
+                <div class="actions">
+                    <h4>What You Can Do:</h4>
+                    <ul>
+                        <li>Switch to renewable energy providers</li>
+                        <li>Use energy-efficient appliances</li>
+                        <li>Turn off lights and unplug devices</li>
+                        <li>Consider solar panels for your home</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="sdg-card sdg-8">
+                <h3>8. Decent Work and Economic Growth</h3>
+                <p>Promote sustained, inclusive economic growth and decent work.</p>
+                <div class="actions">
+                    <h4>What You Can Do:</h4>
+                    <ul>
+                        <li>Support ethical businesses</li>
+                        <li>Advocate for workers' rights</li>
+                        <li>Buy products from companies with fair labor practices</li>
+                        <li>Develop your skills through continuous learning</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="sdg-card sdg-9">
+                <h3>9. Industry, Innovation and Infrastructure</h3>
+                <p>Build resilient infrastructure and foster innovation.</p>
+                <div class="actions">
+                    <h4>What You Can Do:</h4>
+                    <ul>
+                        <li>Support innovative and sustainable businesses</li>
+                        <li>Use public transportation</li>
+                        <li>Advocate for better local infrastructure</li>
+                        <li>Embrace and share new technologies</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="sdg-card sdg-10">
+                <h3>10. Reduced Inequalities</h3>
+                <p>Reduce inequality within and among countries.</p>
+                <div class="actions">
+                    <h4>What You Can Do:</h4>
+                    <ul>
+                        <li>Challenge discrimination in all forms</li>
+                        <li>Support inclusive policies and businesses</li>
+                        <li>Listen to and amplify marginalized voices</li>
+                        <li>Advocate for equal opportunities</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="sdg-card sdg-11">
+                <h3>11. Sustainable Cities and Communities</h3>
+                <p>Make cities inclusive, safe, resilient and sustainable.</p>
+                <div class="actions">
+                    <h4>What You Can Do:</h4>
+                    <ul>
+                        <li>Use public transport, bike, or walk</li>
+                        <li>Participate in local community initiatives</li>
+                        <li>Support local businesses</li>
+                        <li>Keep your neighborhood clean</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="sdg-card sdg-12">
+                <h3>12. Responsible Consumption and Production</h3>
+                <p>Ensure sustainable consumption and production patterns.</p>
+                <div class="actions">
+                    <h4>What You Can Do:</h4>
+                    <ul>
+                        <li>Reduce, reuse, and recycle</li>
+                        <li>Buy second-hand and repair items</li>
+                        <li>Choose products with minimal packaging</li>
+                        <li>Avoid single-use plastics</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="sdg-card sdg-13">
+                <h3>13. Climate Action</h3>
+                <p>Take urgent action to combat climate change.</p>
+                <div class="actions">
+                    <h4>What You Can Do:</h4>
+                    <ul>
+                        <li>Reduce your carbon footprint</li>
+                        <li>Eat less meat and dairy</li>
+                        <li>Plant trees and support reforestation</li>
+                        <li>Advocate for climate policies</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="sdg-card sdg-14">
+                <h3>14. Life Below Water</h3>
+                <p>Conserve and sustainably use oceans, seas and marine resources.</p>
+                <div class="actions">
+                    <h4>What You Can Do:</h4>
+                    <ul>
+                        <li>Reduce plastic use</li>
+                        <li>Choose sustainable seafood</li>
+                        <li>Never litter, especially near water</li>
+                        <li>Support ocean conservation organizations</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="sdg-card sdg-15">
+                <h3>15. Life on Land</h3>
+                <p>Protect, restore and promote sustainable use of terrestrial ecosystems.</p>
+                <div class="actions">
+                    <h4>What You Can Do:</h4>
+                    <ul>
+                        <li>Plant native species in your garden</li>
+                        <li>Support wildlife conservation efforts</li>
+                        <li>Avoid products that harm forests</li>
+                        <li>Participate in tree-planting activities</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="sdg-card sdg-16">
+                <h3>16. Peace, Justice and Strong Institutions</h3>
+                <p>Promote peaceful and inclusive societies for sustainable development.</p>
+                <div class="actions">
+                    <h4>What You Can Do:</h4>
+                    <ul>
+                        <li>Stay informed about social issues</li>
+                        <li>Vote in elections</li>
+                        <li>Support human rights organizations</li>
+                        <li>Promote dialogue and peaceful conflict resolution</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="sdg-card sdg-17">
+                <h3>17. Partnerships for the Goals</h3>
+                <p>Strengthen the means of implementation and revitalize partnerships.</p>
+                <div class="actions">
+                    <h4>What You Can Do:</h4>
+                    <ul>
+                        <li>Collaborate with others on SDG projects</li>
+                        <li>Share knowledge and resources</li>
+                        <li>Support international cooperation</li>
+                        <li>Spread awareness about the SDGs</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="cta-section">
+            <h2>Ready to Make a Difference?</h2>
+            <p>Every action counts, no matter how small. Start today by choosing one goal and one action. Together, we can create a better world for current and future generations.</p>
+            <a href="https://sdgs.un.org/goals" class="cta-button" target="_blank">Learn More at UN</a>
+            <a href="#" class="cta-button" onclick="window.print(); return false;">Print This Guide</a>
+        </div>
     </div>
 
-    <div class="sdg-card sdg-4" data-aos="zoom-in">
-      <div class="sdg-inner">
-        <div class="sdg-front">
-          <h3>4. Quality Education</h3>
-          <p>Ensure inclusive and equitable quality education for all.</p>
-        </div>
-        <div class="sdg-back">
-          <div class="actions">
-            <h4>What You Can Do:</h4>
-            <ul>
-              <li>Tutor or mentor students</li>
-              <li>Donate books and educational materials</li>
-              <li>Support literacy programs</li>
-              <li>Share your knowledge</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="sdg-card sdg-6" data-aos="zoom-in">
-      <div class="sdg-inner">
-        <div class="sdg-front">
-          <h3>6. Clean Water and Sanitation</h3>
-          <p>Ensure access to water and sanitation for all.</p>
-        </div>
-        <div class="sdg-back">
-          <div class="actions">
-            <h4>What You Can Do:</h4>
-            <ul>
-              <li>Conserve water daily</li>
-              <li>Fix leaks promptly</li>
-              <li>Don’t pollute water sources</li>
-              <li>Support clean water charities</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="cta-section" data-aos="fade-up">
-    <h2>Ready to Make a Difference?</h2>
-    <p>Every action counts — choose one goal and start today!</p>
-    <a href="https://sdgs.un.org/goals" class="cta-button" target="_blank">Learn More at UN</a>
-  </div>
-</div>
-
-<footer>
-  <p>🌱 Every action matters. Start making a difference today! 🌱</p>
-</footer>
-
-<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-<script>
-AOS.init();
-
-// Mark actions as completed
-document.querySelectorAll('.actions li').forEach(li => {
-  li.addEventListener('click', () => li.classList.toggle('completed'));
-});
-
-// Simple animated particle background
-const canvas = document.getElementById('particles');
-const ctx = canvas.getContext('2d');
-let particles = [];
-
-function resize() {
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight * 0.5;
-}
-window.addEventListener('resize', resize);
-resize();
-
-for (let i = 0; i < 80; i++) {
-  particles.push({
-    x: Math.random() * canvas.width,
-    y: Math.random() * canvas.height,
-    r: Math.random() * 2 + 1,
-    dx: (Math.random() - 0.5) * 0.6,
-    dy: (Math.random() - 0.5) * 0.6
-  });
-}
-
-function draw() {
-  ctx.clearRect(0,0,canvas.width,canvas.height);
-  ctx.fillStyle = 'rgba(255,255,255,0.8)';
-  particles.forEach(p => {
-    ctx.beginPath();
-    ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
-    ctx.fill();
-    p.x += p.dx; p.y += p.dy;
-    if(p.x<0||p.x>canvas.width)p.dx*=-1;
-    if(p.y<0||p.y>canvas.height)p.dy*=-1;
-  });
-  requestAnimationFrame(draw);
-}
-draw();
-</script>
+    <footer>
+        <p>🌱 Every action matters. Start making a difference today! 🌱</p>
+        <p style="font-size: 0.9em; margin-top: 10px;">Learn more at <a href="https://sdgs.un.org" style="color: white; text-decoration: underline;">sdgs.un.org</a></p>
+    </footer>
 </body>
 </html>
