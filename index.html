@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>17 SDGs - Your Guide to Global Action</title>
+    <title>17 SDGs - Interactive Global Action Platform</title>
     <style>
         * {
             margin: 0;
@@ -15,89 +15,386 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
             color: #333;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            overflow-x: hidden;
         }
 
+        /* Animated Background */
+        .bg-wrapper {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+        }
+
+        .bg-shapes {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .shape {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(60px);
+            opacity: 0.3;
+            animation: float 20s infinite ease-in-out;
+        }
+
+        .shape1 { width: 300px; height: 300px; background: #26BDE2; top: 10%; left: 10%; animation-delay: 0s; }
+        .shape2 { width: 400px; height: 400px; background: #FCC30B; top: 60%; right: 10%; animation-delay: 5s; }
+        .shape3 { width: 250px; height: 250px; background: #56C02B; bottom: 20%; left: 50%; animation-delay: 10s; }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(50px, -50px) scale(1.1); }
+            66% { transform: translate(-30px, 30px) scale(0.9); }
+        }
+
+        /* Globe Intro Section */
+        .globe-intro {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            position: relative;
+        }
+
+        .globe-container {
+            width: 300px;
+            height: 300px;
+            margin: 40px auto;
+            position: relative;
+            animation: rotate3d 20s linear infinite;
+        }
+
+        .globe {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #4CAF50, #2196F3);
+            position: relative;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.4), inset 0 -20px 40px rgba(0,0,0,0.3);
+        }
+
+        .globe::before {
+            content: '';
+            position: absolute;
+            top: 10%;
+            left: 10%;
+            width: 80%;
+            height: 80%;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.3), transparent);
+        }
+
+        .orbit {
+            position: absolute;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            animation: spin 10s linear infinite;
+        }
+
+        .orbit1 { width: 120%; height: 120%; top: -10%; left: -10%; }
+        .orbit2 { width: 140%; height: 140%; top: -20%; left: -20%; animation-delay: -5s; }
+
+        .sdg-icon {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 14px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            animation: pulse 2s infinite;
+        }
+
+        .icon1 { top: 10%; left: 50%; transform: translateX(-50%); background: #E5243B; color: white; }
+        .icon2 { bottom: 10%; left: 50%; transform: translateX(-50%); background: #56C02B; color: white; animation-delay: 0.5s; }
+        .icon3 { top: 50%; right: 10%; transform: translateY(-50%); background: #26BDE2; color: white; animation-delay: 1s; }
+
+        @keyframes rotate3d {
+            0% { transform: rotateY(0deg) rotateX(10deg); }
+            100% { transform: rotateY(360deg) rotateX(10deg); }
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .globe-intro h1 {
+            font-size: 3.5em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            animation: fadeInDown 1s ease;
+        }
+
+        .globe-intro p {
+            font-size: 1.5em;
+            margin-bottom: 40px;
+            opacity: 0.95;
+            animation: fadeInUp 1s ease 0.3s backwards;
+        }
+
+        .scroll-indicator {
+            margin-top: 40px;
+            animation: bounce 2s infinite;
+            cursor: pointer;
+        }
+
+        .scroll-indicator::after {
+            content: '↓';
+            font-size: 3em;
+            opacity: 0.8;
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        /* Main Content */
         .container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
             padding: 20px;
-        }
-
-        header {
-            text-align: center;
-            padding: 60px 20px;
-            color: white;
-        }
-
-        header h1 {
-            font-size: 3em;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-        }
-
-        header p {
-            font-size: 1.3em;
-            opacity: 0.95;
+            position: relative;
         }
 
         .intro {
-            background: white;
-            padding: 40px;
-            border-radius: 15px;
-            margin-bottom: 40px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            background: rgba(255, 255, 255, 0.95);
+            padding: 50px;
+            border-radius: 20px;
+            margin-bottom: 50px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+            backdrop-filter: blur(10px);
+            animation: fadeIn 1s ease;
         }
 
         .intro h2 {
             color: #667eea;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
+            font-size: 2.5em;
         }
 
+        /* Filter Section */
+        .filter-section {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 30px;
+            border-radius: 20px;
+            margin-bottom: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+            backdrop-filter: blur(10px);
+        }
+
+        .filter-section h3 {
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+
+        .filter-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        .filter-btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 30px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .filter-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        }
+
+        .filter-btn.active {
+            background: linear-gradient(135deg, #56C02B, #4CAF50);
+            transform: scale(1.05);
+        }
+
+        .stats-bar {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 2px solid rgba(102, 126, 234, 0.3);
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #667eea;
+            display: block;
+        }
+
+        .stat-label {
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        /* SDG Grid */
         .sdg-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
-            margin-bottom: 40px;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
         }
 
         .sdg-card {
-            background: white;
-            border-radius: 12px;
-            padding: 25px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            transition: transform 0.3s, box-shadow 0.3s;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             cursor: pointer;
-            border-left: 5px solid;
+            border-left: 8px solid;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+
+        .sdg-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, transparent, rgba(255,255,255,0.3));
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+
+        .sdg-card:hover::before {
+            opacity: 1;
         }
 
         .sdg-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.25);
+        }
+
+        .sdg-card.hidden {
+            display: none;
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .sdg-number {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8em;
+            font-weight: bold;
+            color: white;
+            margin-right: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
         }
 
         .sdg-card h3 {
-            margin-bottom: 10px;
-            font-size: 1.2em;
+            margin: 0;
+            font-size: 1.3em;
+            flex: 1;
         }
 
         .sdg-card p {
             color: #666;
-            font-size: 0.95em;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
+            font-size: 1em;
         }
 
         .actions {
-            background: #f8f9fa;
-            padding: 15px;
-            border-radius: 8px;
-            margin-top: 15px;
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            padding: 20px;
+            border-radius: 15px;
+            margin-top: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .actions::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.3), transparent);
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+
+        .sdg-card:hover .actions::before {
+            opacity: 1;
         }
 
         .actions h4 {
             color: #333;
-            margin-bottom: 10px;
-            font-size: 1em;
+            margin-bottom: 15px;
+            font-size: 1.1em;
+            display: flex;
+            align-items: center;
+        }
+
+        .actions h4::before {
+            content: '💡';
+            margin-right: 8px;
+            font-size: 1.2em;
         }
 
         .actions ul {
@@ -106,90 +403,181 @@
         }
 
         .actions li {
-            padding: 5px 0;
+            padding: 8px 0;
             color: #555;
-            font-size: 0.9em;
+            font-size: 0.95em;
+            transition: transform 0.3s;
+        }
+
+        .actions li:hover {
+            transform: translateX(5px);
         }
 
         .actions li:before {
             content: "✓ ";
             color: #28a745;
             font-weight: bold;
-            margin-right: 5px;
+            margin-right: 8px;
+            font-size: 1.2em;
         }
 
+        .category-tag {
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 20px;
+            background: rgba(102, 126, 234, 0.2);
+            color: #667eea;
+            font-size: 0.85em;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        /* CTA Section */
         .cta-section {
-            background: white;
-            padding: 40px;
-            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 60px;
+            border-radius: 20px;
             text-align: center;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(102,126,234,0.1), transparent);
+            animation: rotate 20s linear infinite;
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
 
         .cta-section h2 {
             color: #667eea;
             margin-bottom: 20px;
+            font-size: 2.5em;
+            position: relative;
+        }
+
+        .cta-section p {
+            font-size: 1.2em;
+            margin-bottom: 30px;
+            position: relative;
         }
 
         .cta-button {
             display: inline-block;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
-            padding: 15px 40px;
-            border-radius: 30px;
+            padding: 18px 45px;
+            border-radius: 50px;
             text-decoration: none;
             font-weight: bold;
             margin: 10px;
-            transition: transform 0.3s;
+            transition: all 0.3s;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .cta-button:hover::before {
+            width: 300px;
+            height: 300px;
         }
 
         .cta-button:hover {
-            transform: scale(1.05);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
         }
 
         footer {
             text-align: center;
-            padding: 30px;
+            padding: 40px;
             color: white;
-            margin-top: 40px;
+            margin-top: 50px;
+            background: rgba(0,0,0,0.2);
+            border-radius: 20px;
         }
 
         /* SDG Colors */
-        .sdg-1 { border-left-color: #E5243B; }
-        .sdg-2 { border-left-color: #DDA63A; }
-        .sdg-3 { border-left-color: #4C9F38; }
-        .sdg-4 { border-left-color: #C5192D; }
-        .sdg-5 { border-left-color: #FF3A21; }
-        .sdg-6 { border-left-color: #26BDE2; }
-        .sdg-7 { border-left-color: #FCC30B; }
-        .sdg-8 { border-left-color: #A21942; }
-        .sdg-9 { border-left-color: #FD6925; }
-        .sdg-10 { border-left-color: #DD1367; }
-        .sdg-11 { border-left-color: #FD9D24; }
-        .sdg-12 { border-left-color: #BF8B2E; }
-        .sdg-13 { border-left-color: #3F7E44; }
-        .sdg-14 { border-left-color: #0A97D9; }
-        .sdg-15 { border-left-color: #56C02B; }
-        .sdg-16 { border-left-color: #00689D; }
-        .sdg-17 { border-left-color: #19486A; }
+        .sdg-1, .sdg-1 .sdg-number { background-color: #E5243B; border-color: #E5243B; }
+        .sdg-2, .sdg-2 .sdg-number { background-color: #DDA63A; border-color: #DDA63A; }
+        .sdg-3, .sdg-3 .sdg-number { background-color: #4C9F38; border-color: #4C9F38; }
+        .sdg-4, .sdg-4 .sdg-number { background-color: #C5192D; border-color: #C5192D; }
+        .sdg-5, .sdg-5 .sdg-number { background-color: #FF3A21; border-color: #FF3A21; }
+        .sdg-6, .sdg-6 .sdg-number { background-color: #26BDE2; border-color: #26BDE2; }
+        .sdg-7, .sdg-7 .sdg-number { background-color: #FCC30B; border-color: #FCC30B; }
+        .sdg-8, .sdg-8 .sdg-number { background-color: #A21942; border-color: #A21942; }
+        .sdg-9, .sdg-9 .sdg-number { background-color: #FD6925; border-color: #FD6925; }
+        .sdg-10, .sdg-10 .sdg-number { background-color: #DD1367; border-color: #DD1367; }
+        .sdg-11, .sdg-11 .sdg-number { background-color: #FD9D24; border-color: #FD9D24; }
+        .sdg-12, .sdg-12 .sdg-number { background-color: #BF8B2E; border-color: #BF8B2E; }
+        .sdg-13, .sdg-13 .sdg-number { background-color: #3F7E44; border-color: #3F7E44; }
+        .sdg-14, .sdg-14 .sdg-number { background-color: #0A97D9; border-color: #0A97D9; }
+        .sdg-15, .sdg-15 .sdg-number { background-color: #56C02B; border-color: #56C02B; }
+        .sdg-16, .sdg-16 .sdg-number { background-color: #00689D; border-color: #00689D; }
+        .sdg-17, .sdg-17 .sdg-number { background-color: #19486A; border-color: #19486A; }
 
         @media (max-width: 768px) {
-            header h1 {
-                font-size: 2em;
-            }
-            .sdg-grid {
-                grid-template-columns: 1fr;
-            }
+            .globe-intro h1 { font-size: 2em; }
+            .globe-container { width: 200px; height: 200px; }
+            .sdg-grid { grid-template-columns: 1fr; }
+            .filter-buttons { flex-direction: column; }
+            .stats-bar { flex-direction: column; gap: 20px; }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
 <body>
-    <header>
-        <div class="container">
-            <h1>🌍 The 17 Sustainable Development Goals</h1>
-            <p>Small Actions, Big Impact - Your Guide to Making a Difference</p>
+    <div class="bg-wrapper">
+        <div class="bg-shapes">
+            <div class="shape shape1"></div>
+            <div class="shape shape2"></div>
+            <div class="shape shape3"></div>
         </div>
-    </header>
+    </div>
+
+    <section class="globe-intro">
+        <h1>🌍 Sustainable Development Goals</h1>
+        <p>17 Goals. One Planet. Infinite Possibilities.</p>
+        
+        <div class="globe-container">
+            <div class="globe">
+                <div class="orbit orbit1"></div>
+                <div class="orbit orbit2"></div>
+                <div class="sdg-icon icon1">1</div>
+                <div class="sdg-icon icon2">15</div>
+                <div class="sdg-icon icon3">6</div>
+            </div>
+        </div>
+
+        <div class="scroll-indicator" onclick="document.querySelector('.intro').scrollIntoView({behavior: 'smooth'})"></div>
+    </section>
 
     <div class="container">
         <div class="intro">
@@ -197,10 +585,38 @@
             <p>The Sustainable Development Goals (SDGs) are 17 interconnected global goals adopted by all United Nations Member States in 2015. They provide a shared blueprint for peace and prosperity for people and the planet, now and into the future. The best part? Everyone can contribute to achieving these goals through everyday actions!</p>
         </div>
 
-        <div class="sdg-grid">
-            <div class="sdg-card sdg-1">
-                <h3>1. No Poverty</h3>
+        <div class="filter-section">
+            <h3>🎯 Explore by Category</h3>
+            <div class="filter-buttons">
+                <button class="filter-btn active" data-category="all">All Goals (17)</button>
+                <button class="filter-btn" data-category="social">Social (6)</button>
+                <button class="filter-btn" data-category="economic">Economic (4)</button>
+                <button class="filter-btn" data-category="environmental">Environmental (7)</button>
+            </div>
+            <div class="stats-bar">
+                <div class="stat-item">
+                    <span class="stat-number" id="showing-count">17</span>
+                    <span class="stat-label">Goals Shown</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">193</span>
+                    <span class="stat-label">Countries Committed</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">2030</span>
+                    <span class="stat-label">Target Year</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="sdg-grid" id="sdg-grid">
+            <div class="sdg-card sdg-1" data-category="social">
+                <div class="card-header">
+                    <div class="sdg-number">1</div>
+                    <h3>No Poverty</h3>
+                </div>
                 <p>End poverty in all its forms everywhere.</p>
+                <span class="category-tag">Social</span>
                 <div class="actions">
                     <h4>What You Can Do:</h4>
                     <ul>
@@ -212,9 +628,13 @@
                 </div>
             </div>
 
-            <div class="sdg-card sdg-2">
-                <h3>2. Zero Hunger</h3>
+            <div class="sdg-card sdg-2" data-category="social">
+                <div class="card-header">
+                    <div class="sdg-number">2</div>
+                    <h3>Zero Hunger</h3>
+                </div>
                 <p>End hunger, achieve food security and improved nutrition.</p>
+                <span class="category-tag">Social</span>
                 <div class="actions">
                     <h4>What You Can Do:</h4>
                     <ul>
@@ -226,9 +646,13 @@
                 </div>
             </div>
 
-            <div class="sdg-card sdg-3">
-                <h3>3. Good Health and Well-Being</h3>
+            <div class="sdg-card sdg-3" data-category="social">
+                <div class="card-header">
+                    <div class="sdg-number">3</div>
+                    <h3>Good Health and Well-Being</h3>
+                </div>
                 <p>Ensure healthy lives and promote well-being for all.</p>
+                <span class="category-tag">Social</span>
                 <div class="actions">
                     <h4>What You Can Do:</h4>
                     <ul>
@@ -240,9 +664,13 @@
                 </div>
             </div>
 
-            <div class="sdg-card sdg-4">
-                <h3>4. Quality Education</h3>
+            <div class="sdg-card sdg-4" data-category="social">
+                <div class="card-header">
+                    <div class="sdg-number">4</div>
+                    <h3>Quality Education</h3>
+                </div>
                 <p>Ensure inclusive and equitable quality education for all.</p>
+                <span class="category-tag">Social</span>
                 <div class="actions">
                     <h4>What You Can Do:</h4>
                     <ul>
@@ -254,9 +682,13 @@
                 </div>
             </div>
 
-            <div class="sdg-card sdg-5">
-                <h3>5. Gender Equality</h3>
+            <div class="sdg-card sdg-5" data-category="social">
+                <div class="card-header">
+                    <div class="sdg-number">5</div>
+                    <h3>Gender Equality</h3>
+                </div>
                 <p>Achieve gender equality and empower all women and girls.</p>
+                <span class="category-tag">Social</span>
                 <div class="actions">
                     <h4>What You Can Do:</h4>
                     <ul>
@@ -268,9 +700,13 @@
                 </div>
             </div>
 
-            <div class="sdg-card sdg-6">
-                <h3>6. Clean Water and Sanitation</h3>
+            <div class="sdg-card sdg-6" data-category="environmental">
+                <div class="card-header">
+                    <div class="sdg-number">6</div>
+                    <h3>Clean Water and Sanitation</h3>
+                </div>
                 <p>Ensure access to water and sanitation for all.</p>
+                <span class="category-tag">Environmental</span>
                 <div class="actions">
                     <h4>What You Can Do:</h4>
                     <ul>
@@ -282,9 +718,13 @@
                 </div>
             </div>
 
-            <div class="sdg-card sdg-7">
-                <h3>7. Affordable and Clean Energy</h3>
+            <div class="sdg-card sdg-7" data-category="environmental">
+                <div class="card-header">
+                    <div class="sdg-number">7</div>
+                    <h3>Affordable and Clean Energy</h3>
+                </div>
                 <p>Ensure access to affordable, reliable, sustainable energy.</p>
+                <span class="category-tag">Environmental</span>
                 <div class="actions">
                     <h4>What You Can Do:</h4>
                     <ul>
@@ -296,9 +736,13 @@
                 </div>
             </div>
 
-            <div class="sdg-card sdg-8">
-                <h3>8. Decent Work and Economic Growth</h3>
+            <div class="sdg-card sdg-8" data-category="economic">
+                <div class="card-header">
+                    <div class="sdg-number">8</div>
+                    <h3>Decent Work and Economic Growth</h3>
+                </div>
                 <p>Promote sustained, inclusive economic growth and decent work.</p>
+                <span class="category-tag">Economic</span>
                 <div class="actions">
                     <h4>What You Can Do:</h4>
                     <ul>
@@ -310,9 +754,13 @@
                 </div>
             </div>
 
-            <div class="sdg-card sdg-9">
-                <h3>9. Industry, Innovation and Infrastructure</h3>
+            <div class="sdg-card sdg-9" data-category="economic">
+                <div class="card-header">
+                    <div class="sdg-number">9</div>
+                    <h3>Industry, Innovation and Infrastructure</h3>
+                </div>
                 <p>Build resilient infrastructure and foster innovation.</p>
+                <span class="category-tag">Economic</span>
                 <div class="actions">
                     <h4>What You Can Do:</h4>
                     <ul>
@@ -324,9 +772,13 @@
                 </div>
             </div>
 
-            <div class="sdg-card sdg-10">
-                <h3>10. Reduced Inequalities</h3>
+            <div class="sdg-card sdg-10" data-category="social">
+                <div class="card-header">
+                    <div class="sdg-number">10</div>
+                    <h3>Reduced Inequalities</h3>
+                </div>
                 <p>Reduce inequality within and among countries.</p>
+                <span class="category-tag">Social</span>
                 <div class="actions">
                     <h4>What You Can Do:</h4>
                     <ul>
@@ -334,120 +786,3 @@
                         <li>Support inclusive policies and businesses</li>
                         <li>Listen to and amplify marginalized voices</li>
                         <li>Advocate for equal opportunities</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="sdg-card sdg-11">
-                <h3>11. Sustainable Cities and Communities</h3>
-                <p>Make cities inclusive, safe, resilient and sustainable.</p>
-                <div class="actions">
-                    <h4>What You Can Do:</h4>
-                    <ul>
-                        <li>Use public transport, bike, or walk</li>
-                        <li>Participate in local community initiatives</li>
-                        <li>Support local businesses</li>
-                        <li>Keep your neighborhood clean</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="sdg-card sdg-12">
-                <h3>12. Responsible Consumption and Production</h3>
-                <p>Ensure sustainable consumption and production patterns.</p>
-                <div class="actions">
-                    <h4>What You Can Do:</h4>
-                    <ul>
-                        <li>Reduce, reuse, and recycle</li>
-                        <li>Buy second-hand and repair items</li>
-                        <li>Choose products with minimal packaging</li>
-                        <li>Avoid single-use plastics</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="sdg-card sdg-13">
-                <h3>13. Climate Action</h3>
-                <p>Take urgent action to combat climate change.</p>
-                <div class="actions">
-                    <h4>What You Can Do:</h4>
-                    <ul>
-                        <li>Reduce your carbon footprint</li>
-                        <li>Eat less meat and dairy</li>
-                        <li>Plant trees and support reforestation</li>
-                        <li>Advocate for climate policies</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="sdg-card sdg-14">
-                <h3>14. Life Below Water</h3>
-                <p>Conserve and sustainably use oceans, seas and marine resources.</p>
-                <div class="actions">
-                    <h4>What You Can Do:</h4>
-                    <ul>
-                        <li>Reduce plastic use</li>
-                        <li>Choose sustainable seafood</li>
-                        <li>Never litter, especially near water</li>
-                        <li>Support ocean conservation organizations</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="sdg-card sdg-15">
-                <h3>15. Life on Land</h3>
-                <p>Protect, restore and promote sustainable use of terrestrial ecosystems.</p>
-                <div class="actions">
-                    <h4>What You Can Do:</h4>
-                    <ul>
-                        <li>Plant native species in your garden</li>
-                        <li>Support wildlife conservation efforts</li>
-                        <li>Avoid products that harm forests</li>
-                        <li>Participate in tree-planting activities</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="sdg-card sdg-16">
-                <h3>16. Peace, Justice and Strong Institutions</h3>
-                <p>Promote peaceful and inclusive societies for sustainable development.</p>
-                <div class="actions">
-                    <h4>What You Can Do:</h4>
-                    <ul>
-                        <li>Stay informed about social issues</li>
-                        <li>Vote in elections</li>
-                        <li>Support human rights organizations</li>
-                        <li>Promote dialogue and peaceful conflict resolution</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="sdg-card sdg-17">
-                <h3>17. Partnerships for the Goals</h3>
-                <p>Strengthen the means of implementation and revitalize partnerships.</p>
-                <div class="actions">
-                    <h4>What You Can Do:</h4>
-                    <ul>
-                        <li>Collaborate with others on SDG projects</li>
-                        <li>Share knowledge and resources</li>
-                        <li>Support international cooperation</li>
-                        <li>Spread awareness about the SDGs</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <div class="cta-section">
-            <h2>Ready to Make a Difference?</h2>
-            <p>Every action counts, no matter how small. Start today by choosing one goal and one action. Together, we can create a better world for current and future generations.</p>
-            <a href="https://sdgs.un.org/goals" class="cta-button" target="_blank">Learn More at UN</a>
-            <a href="#" class="cta-button" onclick="window.print(); return false;">Print This Guide</a>
-        </div>
-    </div>
-
-    <footer>
-        <p>🌱 Every action matters. Start making a difference today! 🌱</p>
-        <p style="font-size: 0.9em; margin-top: 10px;">Learn more at <a href="https://sdgs.un.org" style="color: white; text-decoration: underline;">sdgs.un.org</a></p>
-    </footer>
-</body>
-</html>
