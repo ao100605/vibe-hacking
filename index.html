@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>17 SDGs - Your Guide to Global Action 🌍</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: #333;
+  overflow-x: hidden;
+}
+header {
+  text-align: center;
+  padding: 80px 20px 50px;
+  color: white;
+  position: relative;
+}
+header h1 {
+  font-size: 3.2em;
+  text-shadow: 3px 3px 10px rgba(0,0,0,0.3);
+}
+header p {
+  font-size: 1.3em;
+  margin-top: 10px;
+}
+.globe {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #76d7c4, #2e86c1);
+  box-shadow: 0 0 40px rgba(255,255,255,0.2);
+  animation: rotate 10s linear infinite;
+}
+@keyframes rotate {
+  from { transform: translateX(-50%) rotate(0deg); }
+  to { transform: translateX(-50%) rotate(360deg); }
+}
+.container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 20px;
+}
+.intro {
+  background: white;
+  padding: 40px;
+  border-radius: 20px;
+  margin-bottom: 40px;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+.intro h2 {
+  color: #667eea;
+  margin-bottom: 15px;
+}
+.filter-bar {
+  text-align: center;
+  margin-bottom: 30px;
+}
+.filter-bar button {
+  margin: 5px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 30px;
+  background: #fff;
+  color: #667eea;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.filter-bar button:hover {
+  background: #667eea;
+  color: white;
+}
+.sdg-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+  gap: 25px;
+}
+.sdg-card {
+  background: white;
+  border-radius: 12px;
+  padding: 25px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  transition: transform 0.3s, box-shadow 0.3s;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+.sdg-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+}
+.sdg-card h3 {
+  margin-bottom: 10px;
+}
+.progress {
+  background: #eee;
+  height: 8px;
+  border-radius: 4px;
+  margin: 10px 0 15px;
+  overflow: hidden;
+}
+.progress span {
+  display: block;
+  height: 8px;
+  border-radius: 4px;
+  width: 0;
+  background: #667eea;
+  transition: width 1s ease-in-out;
+}
+.actions h4 {
+  margin-bottom: 5px;
+  color: #444;
+}
+.actions ul {
+  list-style: none;
+}
+.actions li {
+  font-size: 0.9em;
+  margin-bottom: 5px;
+}
+.actions li::before {
+  content: "🌱 ";
+}
+.cta-section {
+  background: white;
+  padding: 50px;
+  border-radius: 20px;
+  text-align: center;
+  margin-top: 60px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+.cta-section h2 {
+  color: #667eea;
+  margin-bottom: 20px;
+}
+.cta-button {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+  text-decoration: none;
+  padding: 15px 40px;
+  border-radius: 40px;
+  font-weight: 600;
+  margin: 10px;
+  transition: transform 0.3s;
+}
+.cta-button:hover {
+  transform: scale(1.05);
+}
+footer {
+  text-align: center;
+  padding: 40px;
+  color: white;
+}
+.sdg-card[data-sdg]:before {
+  content: attr(data-sdg);
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 1.2em;
+  font-weight: bold;
+  opacity: 0.15;
+}
+/* SDG color indicators */
+.sdg-card[data-sdg="1"] { border-left: 6px solid #E5243B; }
+.sdg-card[data-sdg="2"] { border-left: 6px solid #DDA63A; }
+.sdg-card[data-sdg="3"] { border-left: 6px solid #4C9F38; }
+.sdg-card[data-sdg="4"] { border-left: 6px solid #C5192D; }
+.sdg-card[data-sdg="5"] { border-left: 6px solid #FF3A21; }
+.sdg-card[data-sdg="6"] { border-left: 6px solid #26BDE2; }
+.sdg-card[data-sdg="7"] { border-left: 6px solid #FCC30B; }
+.sdg-card[data-sdg="8"] { border-left: 6px solid #A21942; }
+.sdg-card[data-sdg="9"] { border-left: 6px solid #FD6925; }
+.sdg-card[data-sdg="10"] { border-left: 6px solid #DD1367; }
+.sdg-card[data-sdg="11"] { border-left: 6px solid #FD9D24; }
+.sdg-card[data-sdg="12"] { border-left: 6px solid #BF8B2E; }
+.sdg-card[data-sdg="13"] { border-left: 6px solid #3F7E44; }
+.sdg-card[data-sdg="14"] { border-left: 6px solid #0A97D9; }
+.sdg-card[data-sdg="15"] { border-left: 6px solid #56C02B; }
+.sdg-card[data-sdg="16"] { border-left: 6px solid #00689D; }
+.sdg-card[data-sdg="17"] { border-left: 6px solid #19486A; }
+
+@media (max-width: 768px) {
+  header h1 { font-size: 2.2em; }
+  .globe { width: 80px; height: 80px; }
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="globe"></div>
+  <h1>🌍 The 17 Sustainable Development Goals</h1>
+  <p>Small Actions, Big Impact – Your Guide to Global Change</p>
+</header>
+
+<div class="container">
+  <div class="intro">
+    <h2>What are the SDGs?</h2>
+    <p>The Sustainable Development Goals (SDGs) are 17 global goals adopted by the United Nations in 2015. They aim to end poverty, protect the planet, and ensure prosperity for all by 2030.</p>
+  </div>
+
+  <div class="filter-bar">
+    <button onclick="filterGoals('all')">Show All</button>
+    <button onclick="filterGoals('people')">People</button>
+    <button onclick="filterGoals('planet')">Planet</button>
+    <button onclick="filterGoals('prosperity')">Prosperity</button>
+  </div>
+
+  <div class="sdg-grid" id="sdgGrid">
+    <!-- SDG cards injected by JS -->
+  </div>
+
+  <div class="cta-section">
+    <h2>Ready to Make a Difference?</h2>
+    <p>Pick one goal and take one action today. Every small effort adds up!</p>
+    <a href="https://sdgs.un.org/goals" target="_blank" class="cta-button">Learn More at UN</a>
+    <a href="#" onclick="window.scrollTo({top:0, behavior:'smooth'})" class="cta-button">Back to Top ↑</a>
+  </div>
+</div>
+
+<footer>
+  <p>🌱 Every action matters. Start making a difference today! 🌱</p>
+  <small>Learn more at <a href="https://sdgs.un.org" style="color:white; text-decoration:underline;">sdgs.un.org</a></small>
+</footer>
+
+<script>
+const sdgs = [
+  {id:1, title:"No Poverty", cat:"people", desc:"End poverty in all its forms everywhere.", actions:["Donate to poverty relief","Volunteer locally","Buy fair trade","Support shelters"]},
+  {id:2, title:"Zero Hunger", cat:"people", desc:"End hunger and achieve food security.", actions:["Reduce food waste","Support farmers","Donate food","Compost waste"]},
+  {id:3, title:"Good Health & Well-Being", cat:"people", desc:"Ensure healthy lives and promote well-being.", actions:["Exercise","Get vaccinated","Support mental health","Donate blood"]},
+  {id:4, title:"Quality Education", cat:"people", desc:"Ensure inclusive and equitable education.", actions:["Tutor students","Donate books","Support literacy","Share skills"]},
+  {id:5, title:"Gender Equality", cat:"people", desc:"Achieve gender equality and empower women.", actions:["Challenge stereotypes","Support women-owned businesses","Advocate for equality","Educate yourself"]},
+  {id:6, title:"Clean Water & Sanitation", cat:"planet", desc:"Ensure access to water and sanitation for all.", actions:["Save water","Fix leaks","Avoid pollution","Support clean water NGOs"]},
+  {id:7, title:"Affordable & Clean Energy", cat:"planet", desc:"Ensure access to sustainable energy.", actions:["Use renewables","Turn off lights","Upgrade appliances","Consider solar panels"]},
+  {id:8, title:"Decent Work & Economic Growth", cat:"prosperity", desc:"Promote sustained economic growth and decent work.", actions:["Support ethical businesses","Advocate workers' rights","Buy fair labor","Keep learning"]},
+  {id:9, title:"Industry, Innovation & Infrastructure", cat:"prosperity", desc:"Build resilient infrastructure and foster innovation.", actions:["Use public transport","Support innovation","Upgrade tech","Advocate infrastructure"]},
+  {id:10, title:"Reduced Inequalities", cat:"people", desc:"Reduce inequality within and among countries.", actions:["Challenge discrimination","Support inclusive policies","Amplify marginalized voices","Promote equal opportunities"]},
+  {id:11, title:"Sustainable Cities & Communities", cat:"planet", desc:"Make cities inclusive and resilient.", actions:["Use public transport","Support local biz","Join cleanups","Engage locally"]},
+  {id:12, title:"Responsible Consumption", cat:"planet", desc:"Ensure sustainable consumption patterns.", actions:["Reduce, reuse, recycle","Buy second-hand","Avoid single-use plastic","Repair items"]},
+  {id:13, title:"Climate Action", cat:"planet", desc:"Take urgent action against climate change.", actions:["Reduce emissions","Plant trees","Eat less meat","Advocate for policies"]},
+  {id:14, title:"Life Below Water", cat:"planet", desc:"Conserve oceans and marine life.", actions:["Reduce plastic","Choose sustainable seafood","Don't litter","Support ocean orgs"]},
+  {id:15, title:"Life on Land", cat:"planet", desc:"Protect and restore ecosystems.", actions:["Plant trees","Avoid harmful products","Support wildlife orgs","Go nature-friendly"]},
+  {id:16, title:"Peace, Justice & Strong Institutions", cat:"people", desc:"Promote peace and strong institutions.", actions:["Vote","Stay informed","Support human rights","Encourage dialogue"]},
+  {id:17, title:"Partnerships for the Goals", cat:"prosperity", desc:"Revitalize global partnerships for sustainability.", actions:["Collaborate","Share knowledge","Support cooperation","Spread awareness"]}
+];
+function renderGoals(filter='all') {
+  const grid = document.getElementById('sdgGrid');
+  grid.innerHTML = '';
+  sdgs.filter(s=>filter==='all'||s.cat===filter).forEach(sdg=>{
+    const card = document.createElement('div');
+    card.className = 'sdg-card';
+    card.dataset.sdg = sdg.id;
+    card.innerHTML = `
+      <h3>${sdg.id}. ${sdg.title}</h3>
+      <p>${sdg.desc}</p>
+      <div class="progress"><span style="width:${Math.random()*80+20}%"></span></div>
+      <div class="actions">
+        <h4>What You Can Do:</h4>
+        <ul>${sdg.actions.map(a=>`<li>${a}</li>`).join('')}</ul>
+      </div>`;
+    grid.appendChild(card);
+  });
+}
+function filterGoals(cat) {
+  renderGoals(cat);
+}
+window.onload = () => renderGoals();
+</script>
+</body>
+</html>
