@@ -61,7 +61,7 @@
             66% { transform: translate(-30px, 30px) scale(0.9); }
         }
 
-        /* Globe Intro Section */
+        /* UN Logo Intro Section */
         .globe-intro {
             min-height: 100vh;
             display: flex;
@@ -82,68 +82,101 @@
             animation: rotate3d 20s linear infinite;
         }
 
-        .globe {
+        .un-logo {
             width: 100%;
             height: 100%;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #4CAF50, #2196F3);
             position: relative;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.4), inset 0 -20px 40px rgba(0,0,0,0.3);
-        }
-
-        .globe::before {
-            content: '';
-            position: absolute;
-            top: 10%;
-            left: 10%;
-            width: 80%;
-            height: 80%;
-            border-radius: 50%;
-            background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.3), transparent);
-        }
-
-        .orbit {
-            position: absolute;
-            border: 2px solid rgba(255,255,255,0.3);
-            border-radius: 50%;
-            animation: spin 10s linear infinite;
-        }
-
-        .orbit1 { width: 120%; height: 120%; top: -10%; left: -10%; }
-        .orbit2 { width: 140%; height: 140%; top: -20%; left: -20%; animation-delay: -5s; }
-
-        .sdg-icon {
-            position: absolute;
-            width: 40px;
-            height: 40px;
-            background: white;
-            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-weight: bold;
-            font-size: 14px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-            animation: pulse 2s infinite;
         }
 
-        .icon1 { top: 10%; left: 50%; transform: translateX(-50%); background: #E5243B; color: white; }
-        .icon2 { bottom: 10%; left: 50%; transform: translateX(-50%); background: #56C02B; color: white; animation-delay: 0.5s; }
-        .icon3 { top: 50%; right: 10%; transform: translateY(-50%); background: #26BDE2; color: white; animation-delay: 1s; }
+        .un-emblem {
+            width: 250px;
+            height: 250px;
+            background: white;
+            border-radius: 50%;
+            position: relative;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .un-map {
+            width: 180px;
+            height: 180px;
+            background: #5B92E5;
+            border-radius: 50%;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .un-grid {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+
+        .latitude, .longitude {
+            position: absolute;
+            border: 2px solid white;
+            border-radius: 50%;
+        }
+
+        .latitude1 { width: 100%; height: 100%; top: 0; left: 0; }
+        .latitude2 { width: 80%; height: 80%; top: 10%; left: 10%; }
+        .latitude3 { width: 60%; height: 60%; top: 20%; left: 20%; }
+
+        .longitude {
+            width: 100%;
+            height: 100%;
+            border-radius: 0;
+            border: none;
+            border-right: 2px solid white;
+        }
+
+        .longitude1 { transform: rotate(30deg); }
+        .longitude2 { transform: rotate(60deg); }
+        .longitude3 { transform: rotate(90deg); }
+        .longitude4 { transform: rotate(120deg); }
+        .longitude5 { transform: rotate(150deg); }
+
+        .olive-branches {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+
+        .branch {
+            position: absolute;
+            width: 140px;
+            height: 60px;
+            border: 3px solid #5B92E5;
+            border-radius: 50%;
+        }
+
+        .branch-left {
+            bottom: -10px;
+            left: -20px;
+            border-right: none;
+            border-top: none;
+            transform: rotate(-15deg);
+        }
+
+        .branch-right {
+            bottom: -10px;
+            right: -20px;
+            border-left: none;
+            border-top: none;
+            transform: rotate(15deg);
+        }
 
         @keyframes rotate3d {
             0% { transform: rotateY(0deg) rotateX(10deg); }
             100% { transform: rotateY(360deg) rotateX(10deg); }
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.1); }
         }
 
         .globe-intro h1 {
@@ -567,12 +600,25 @@
         <p>17 Goals. One Planet. Infinite Possibilities.</p>
         
         <div class="globe-container">
-            <div class="globe">
-                <div class="orbit orbit1"></div>
-                <div class="orbit orbit2"></div>
-                <div class="sdg-icon icon1">1</div>
-                <div class="sdg-icon icon2">15</div>
-                <div class="sdg-icon icon3">6</div>
+            <div class="un-logo">
+                <div class="un-emblem">
+                    <div class="un-map">
+                        <div class="un-grid">
+                            <div class="latitude latitude1"></div>
+                            <div class="latitude latitude2"></div>
+                            <div class="latitude latitude3"></div>
+                            <div class="longitude longitude1"></div>
+                            <div class="longitude longitude2"></div>
+                            <div class="longitude longitude3"></div>
+                            <div class="longitude longitude4"></div>
+                            <div class="longitude longitude5"></div>
+                        </div>
+                    </div>
+                    <div class="olive-branches">
+                        <div class="branch branch-left"></div>
+                        <div class="branch branch-right"></div>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -583,30 +629,6 @@
         <div class="intro">
             <h2>What are the SDGs?</h2>
             <p>The Sustainable Development Goals (SDGs) are 17 interconnected global goals adopted by all United Nations Member States in 2015. They provide a shared blueprint for peace and prosperity for people and the planet, now and into the future. The best part? Everyone can contribute to achieving these goals through everyday actions!</p>
-        </div>
-
-        <div class="filter-section">
-            <h3>🎯 Explore by Category</h3>
-            <div class="filter-buttons">
-                <button class="filter-btn active" data-category="all">All Goals (17)</button>
-                <button class="filter-btn" data-category="social">Social (6)</button>
-                <button class="filter-btn" data-category="economic">Economic (4)</button>
-                <button class="filter-btn" data-category="environmental">Environmental (7)</button>
-            </div>
-            <div class="stats-bar">
-                <div class="stat-item">
-                    <span class="stat-number" id="showing-count">17</span>
-                    <span class="stat-label">Goals Shown</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-number">193</span>
-                    <span class="stat-label">Countries Committed</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-number">2030</span>
-                    <span class="stat-label">Target Year</span>
-                </div>
-            </div>
         </div>
 
         <div class="sdg-grid" id="sdg-grid">
@@ -786,3 +808,132 @@
                         <li>Support inclusive policies and businesses</li>
                         <li>Listen to and amplify marginalized voices</li>
                         <li>Advocate for equal opportunities</li>
+                      </ul>
+                </div>
+            </div>
+
+            <div class="sdg-card sdg-11">
+                <div class="card-header">
+                    <div class="sdg-number">11</div>
+                    <h3>Sustainable Cities and Communities</h3>
+                </div>
+                <p>Make cities inclusive, safe, resilient and sustainable.</p>
+                <span class="category-tag">Environmental</span>
+                <div class="actions">
+                    <h4>What You Can Do:</h4>
+                    <ul>
+                        <li>Use public transport, bike, or walk</li>
+                        <li>Participate in local community initiatives</li>
+                        <li>Support local businesses</li>
+                        <li>Keep your neighborhood clean</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="sdg-card sdg-12">
+                <div class="card-header">
+                    <div class="sdg-number">12</div>
+                    <h3>Responsible Consumption and Production</h3>
+                </div>
+                <p>Ensure sustainable consumption and production patterns.</p>
+                <span class="category-tag">Environmental</span>
+                <div class="actions">
+                    <h4>What You Can Do:</h4>
+                    <ul>
+                        <li>Reduce, reuse, and recycle</li>
+                        <li>Buy second-hand and repair items</li>
+                        <li>Choose products with minimal packaging</li>
+                        <li>Avoid single-use plastics</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="sdg-card sdg-13">
+                <div class="card-header">
+                    <div class="sdg-number">13</div>
+                    <h3>Climate Action</h3>
+                </div>
+                <p>Take urgent action to combat climate change.</p>
+                <span class="category-tag">Environmental</span>
+                <div class="actions">
+                    <h4>What You Can Do:</h4>
+                    <ul>
+                        <li>Reduce your carbon footprint</li>
+                        <li>Eat less meat and dairy</li>
+                        <li>Plant trees and support reforestation</li>
+                        <li>Advocate for climate policies</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="sdg-card sdg-14">
+                <div class="card-header">
+                    <div class="sdg-number">14</div>
+                    <h3>Life Below Water</h3>
+                </div>
+                <p>Conserve and sustainably use oceans, seas and marine resources.</p>
+                <span class="category-tag">Environmental</span>
+                <div class="actions">
+                    <h4>What You Can Do:</h4>
+                    <ul>
+                        <li>Reduce plastic use</li>
+                        <li>Choose sustainable seafood</li>
+                        <li>Never litter, especially near water</li>
+                        <li>Support ocean conservation organizations</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="sdg-card sdg-15">
+                <div class="card-header">
+                    <div class="sdg-number">15</div>
+                    <h3>Life on Land</h3>
+                </div>
+                <p>Protect, restore and promote sustainable use of terrestrial ecosystems.</p>
+                <span class="category-tag">Environmental</span>
+                <div class="actions">
+                    <h4>What You Can Do:</h4>
+                    <ul>
+                        <li>Plant native species in your garden</li>
+                        <li>Support wildlife conservation efforts</li>
+                        <li>Avoid products that harm forests</li>
+                        <li>Participate in tree-planting activities</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="sdg-card sdg-16">
+                <div class="card-header">
+                    <div class="sdg-number">16</div>
+                    <h3>Peace, Justice and Strong Institutions</h3>
+                </div>
+                <p>Promote peaceful and inclusive societies for sustainable development.</p>
+                <span class="category-tag">Economic</span>
+                <div class="actions">
+                    <h4>What You Can Do:</h4>
+                    <ul>
+                        <li>Stay informed about social issues</li>
+                        <li>Vote in elections</li>
+                        <li>Support human rights organizations</li>
+                        <li>Promote dialogue and peaceful conflict resolution</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="sdg-card sdg-17">
+                <div class="card-header">
+                    <div class="sdg-number">17</div>
+                    <h3>Partnerships for the Goals</h3>
+                </div>
+                <p>Strengthen the means of implementation and revitalize partnerships.</p>
+                <span class="category-tag">Economic</span>
+                <div class="actions">
+                    <h4>What You Can Do:</h4>
+                    <ul>
+                        <li>Collaborate with others on SDG projects</li>
+                        <li>Share knowledge and resources</li>
+                        <li>Support international cooperation</li>
+                        <li>Spread awareness about the SDGs</li>
+                    </ul>
+                </div>
+            </div>
